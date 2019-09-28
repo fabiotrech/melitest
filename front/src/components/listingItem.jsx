@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./listingItem.scss";
 
 const ListingItem = ({ data }) => {
-    const { id, title, price, picture, free_shipping } = data;
+    const { id, title, price, picture, free_shipping, state_name } = data;
 
     return ( 
         <Link to={`/items/${id}`} className="listing-item" >
@@ -15,8 +15,11 @@ const ListingItem = ({ data }) => {
                     <img className="free-shipping" src="/ic_shipping.png" alt="Envio gratis" />
                 )}
                 <h2 className="item-title">{title}</h2>
-                <span className="item-location">Capital Federal</span>
             </div>
+
+            <span className="item-location">
+                {state_name}
+            </span>
         </Link>
     );
 }

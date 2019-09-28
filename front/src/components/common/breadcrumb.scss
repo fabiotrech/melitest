@@ -1,0 +1,30 @@
+
+.breadcrumb {
+    color: #999;
+    margin: 16px 0;
+    font-size: 14px;
+    overflow: hidden;
+
+    li {
+        float: left;
+        
+        &:after {
+            display: inline-block;
+            border-top: 1px solid #999;
+            border-right: 1px solid #999;
+            content: "";
+            margin: 0 8px 0 5px;
+            height: 6px;
+            width: 6px;
+            transform: rotate(45deg);
+        }
+
+        &:last-child {
+            font-weight: bold;
+            
+            &:after {
+                display: none;
+            }
+       }
+    }
+}

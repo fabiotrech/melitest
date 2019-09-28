@@ -1,7 +1,8 @@
 
 .listing-item {
     display: grid;
-    grid-template-columns: 180px auto;
+    grid-template-columns: 180px auto 180px;
+    grid-gap: 16px;
     color: #333;
     text-decoration: none;
 
@@ -13,12 +14,11 @@
 
     .item-details {
         position: relative;
-        margin-left: 16px;
 
         .item-title {
             font-size: 18px;
             margin: 0;
-            max-width: 50%;
+            max-width: 80%;
         }
         
         .item-price {
@@ -33,9 +33,6 @@
 
         .item-location {
             font-size: 12px;
-            position: absolute;
-            top: 0;
-            right: 100px;
         }
     }
 
