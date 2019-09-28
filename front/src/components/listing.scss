@@ -1,0 +1,15 @@
+
+.list {
+    background-color: #fff;
+    border-radius: 4px;
+
+    li {
+        border-bottom: 1px solid #eee;
+        margin: 0 16px;
+        padding: 16px 0;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}

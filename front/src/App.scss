@@ -3,6 +3,7 @@
 }
 
 body {
+    font-family: 'Lato', sans-serif;
     background-color: #eee;
     margin: 0;
     padding: 0;
@@ -11,6 +12,12 @@ body {
 header {
     background-color: #ffe600;
     padding: 8px 0;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .container {

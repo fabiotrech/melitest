@@ -3,6 +3,7 @@ import ListingItem from "./listingItem";
 import Breadcrumb from "./common/breadcrumb";
 import { search } from "../services/searchService";
 import qs from "qs";
+import "./listing.scss";
 
 class Listing extends Component {
     state = {
@@ -24,7 +25,7 @@ class Listing extends Component {
             <React.Fragment>
                 <Breadcrumb values={categories} />
 
-                <ul>
+                <ul className="list">
                     { items.map(item => 
                         <li key={item.id}>
                             <ListingItem data={item} />

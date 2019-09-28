@@ -1,0 +1,42 @@
+
+.listing-item {
+    display: grid;
+    grid-template-columns: 180px auto;
+    color: #333;
+    text-decoration: none;
+
+    .item-image {
+        height: 180px;
+        width: 180px;
+        border-radius: 4px;
+    }
+
+    .item-details {
+        position: relative;
+        margin-left: 16px;
+
+        .item-title {
+            font-size: 18px;
+            margin: 0;
+            max-width: 50%;
+        }
+        
+        .item-price {
+            display: inline-block;
+            font-size: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .free-shipping {
+            margin: 2px 0 0 10px;
+        }
+
+        .item-location {
+            font-size: 12px;
+            position: absolute;
+            top: 0;
+            right: 100px;
+        }
+    }
+
+}
