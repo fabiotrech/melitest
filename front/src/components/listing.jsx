@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ListingItem from "./listingItem";
 import Breadcrumb from "./common/breadcrumb";
-import { search } from "../services/searchService";
+import { search } from "../services/itemService";
 import qs from "qs";
 import "./listing.scss";
 
@@ -11,10 +11,10 @@ class Listing extends Component {
         items: []
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const { search: term } = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
         
-        const { categories, items } = search(term);
+        const { categories, items } = await search(term);
         this.setState({ categories, items });
     }
 

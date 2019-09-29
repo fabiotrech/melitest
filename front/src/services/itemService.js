@@ -1,23 +1,18 @@
 
-export function getById(id) {
-    return {
-        "author": {
-            "name": "Fabio",
-            "lastname": "Trech"
-        },
-        "item": {
-            "id": "MLA804207795",
-            "title": "Nuevo! iPod Touch 32 Gb Representante Oficial De Apple",
-            "price": {
-                "currency": "$",
-                "amount": 21.499,
-                "decimals": null
-            },
-            "picture": "http://mla-s2-p.mlstatic.com/716505-MLA31597842150_072019-O.jpg",
-            "condition": "new",
-            "free_shipping": true,
-            "sold_quantity": 15,
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        }
-    };
+export const search = async term => {
+    return await fetch(`http://localhost:3100/api/items?q=${term}`)
+        .then(res => res.json())
+        .then(data => data)
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+export const getById = async id => {
+    return await fetch(`http://localhost:3100/api/items/${id}`)
+        .then(res => res.json())
+        .then(data => data)
+        .catch(err => {
+            console.log(err);
+        });
 }

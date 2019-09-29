@@ -5,23 +5,26 @@ import "./details.scss";
 
 class Details extends Component {
     state = {
-        categories: ["Uno", "Dos", "Tres"],
-        data: {
-            item: {
-                price: {}
-            }
+        categories: [],
+        item: {
+            price: {}
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const { params } = this.props.match;
+        const { categories, item } = await getById(params.id);
 
-        const item = getById(params.id);
-        this.setState({ data: item });
+        this.setState({ categories, item });
+    }
+
+    formatCondition = condition => {
+        return condition === "new" ? "Nuevo" : "Usado";
     }
 
     render() {
-        const { data: {item}, categories } = this.state;
+        const { item, categories } = this.state;
+        const { picture, description, condition, sold_quantity, title, price } = item;
 
         return (
             <React.Fragment>
@@ -29,15 +32,15 @@ class Details extends Component {
 
                 <div className="details">
                     <div className="content">
-                        <img src={item.picture} alt="Imagen producto" />
-
+                        <img src={picture} alt="Imagen producto" />
+                        
                         <h2 className="description-title">Descripci&oacute;n del producto</h2>
-                        <p className="item-description">{item.description}</p>
+                        <p className="item-description">{description}</p>
                     </div>
                     <div className="buy-box">
-                        <p className="sold-quantity">Nuevo - {item.sold_quantity} vendidos</p>
-                        <h1 className="item-title">{item.title}</h1>
-                        <p className="price">{item.price.currency} {item.price.amount}</p>
+                        <p className="sold-quantity">{this.formatCondition(condition)} - {sold_quantity} vendidos</p>
+                        <h1 className="item-title">{title}</h1>
+                        <p className="price">{price.currency} {price.amount}</p>
                         <button type="button">
                             Comprar
                         </button>
