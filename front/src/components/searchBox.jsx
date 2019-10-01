@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./searchBox.scss";
 
+// Candidato a ser function component con Hooks
 class SearchBox extends Component {
     state = {
         searchTerm: ""
@@ -15,8 +16,11 @@ class SearchBox extends Component {
 
     onSubmit = e => {
         e.preventDefault();
+        const { searchTerm } = this.state;
+
+        if (!searchTerm) return;
         
-        this.props.history.push(`/items?search=${this.state.searchTerm}`);
+        this.props.history.push(`/items?search=${searchTerm}`);
     };
 
     render() {

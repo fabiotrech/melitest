@@ -1,4 +1,5 @@
 import React from "react";
+import { PropTypes } from "prop-types";
 import "./breadcrumb.scss";
 
 const Breadcrumb = ({values}) => {
@@ -12,5 +13,9 @@ const Breadcrumb = ({values}) => {
         </ul>
      );
 }
- 
+
+Breadcrumb.propTypes = {
+    values: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
 export default Breadcrumb;

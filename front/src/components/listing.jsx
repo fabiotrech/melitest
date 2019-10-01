@@ -11,9 +11,19 @@ class Listing extends Component {
         items: []
     }
 
-    async componentDidMount() {
-        const { search: term } = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+    componentDidMount() {
+        this.LoadData();
+    }
+    
+    componentDidUpdate(prevProps) {
+        const { search } = this.props.location;
+        const { search: prevSearch } = prevProps.location;
         
+        if (search !== prevSearch) this.LoadData();
+    }
+
+    async LoadData() {
+        const { search: term } = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
         const { categories, items } = await search(term);
         this.setState({ categories, items });
     }

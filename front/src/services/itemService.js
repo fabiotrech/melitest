@@ -1,6 +1,8 @@
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export const search = async term => {
-    return await fetch(`http://localhost:3100/api/items?q=${term}`)
+    return await fetch(`${apiUrl}/items?q=${term}`)
         .then(res => res.json())
         .then(data => data)
         .catch(err => {
@@ -9,7 +11,7 @@ export const search = async term => {
 };
 
 export const getById = async id => {
-    return await fetch(`http://localhost:3100/api/items/${id}`)
+    return await fetch(`${apiUrl}/items/${id}`)
         .then(res => res.json())
         .then(data => data)
         .catch(err => {
