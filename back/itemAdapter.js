@@ -1,7 +1,7 @@
 
 // Esta funcion hace la suerte de un mapper
 Adapt = item => {
-    const { id, title, thumbnail: picture, condition, currency_id, price, seller_address } = item;
+    const { id, title, thumbnail: picture, condition, currency_id, price, seller_address, shipping } = item;
     const { city, state } = seller_address;
 
     return {
@@ -14,7 +14,7 @@ Adapt = item => {
         },
         picture,
         condition,
-        "free_shipping": item.shipping.free_shipping,
+        "free_shipping": shipping.free_shipping,
         /* En el listado de busqueda, en el diseño se ve la ubicacion del articulo
          * pero en la definicion de la api en el pdf no figura un campo para esto.
          */
