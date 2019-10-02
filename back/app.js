@@ -25,10 +25,12 @@ app.get("/api/items", (req, res) => {
         .then(res => res.json())
         .then(body => {
             const { results, filters, available_filters } = body;
-
+            /* Segun el tipo de busqueda las categorias estan
+             * en filtros aplicados o en los disponibles
+             */
             const categories = getCategoriesFromFilters(filters) ||
                 getCategoriesFromFilters(available_filters);
-            
+            // Obtengo los primero items segun la constante y los mapo usando el adapter
             const items = results.slice(0, ITEMS_LIMIT)
                 .map(item => adapter(item));
 
@@ -41,10 +43,11 @@ app.get("/api/items", (req, res) => {
 
 app.get("/api/items/:id", (req, res) => {
     const id = req.params.id;
+    // Preparo las urls
     const itemUrl = `${process.env.API_HOST}${endpoints.getItem}`.replace(":id", id);
     const descriptionUrl = `${process.env.API_HOST}${endpoints.getItemDescription}`.replace(":id", id);
     const categoryUrl = `${process.env.API_HOST}${endpoints.getCategory}`;
-
+    // Creo un array de promesas
     const fetchs = [itemUrl, descriptionUrl].map(url => 
         fetch(url).then(res => res.json())
     );
@@ -53,12 +56,16 @@ app.get("/api/items/:id", (req, res) => {
         .then(async ([ itemData, itemDesc ]) => {
             const { sold_quantity, pictures, category_id } = itemData;
             const { plain_text: description } = itemDesc;
+            // Obtengo la primera imagen de pictures porque la thumbnail no me sirve
             const picture = pictures[0].url;
 
+            // Busco el path por el id de la categoria y devuelo un array de string
             const categories = await fetch(categoryUrl.replace(":id", category_id))
                 .then(res => res.json())
                 .then(({path_from_root}) =>  path_from_root.map(p => p.name));
-
+            /* Construyo un objeto como es requerido y reemplazo la propiedad
+             * picture por la imagen obtenida anteriormente
+             */
             const item = { ...adapter(itemData), sold_quantity, description, picture };
             
             res.send({ author, categories, item });

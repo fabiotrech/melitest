@@ -4,13 +4,19 @@ import "./breadcrumb.scss";
 
 const Breadcrumb = ({values}) => {
     return (
-        <ul className="breadcrumb">
-            { values.map(item => 
-                <li key={item}>
-                    {item}
+        <ol className="breadcrumb" itemScope itemType="https://schema.org/BreadcrumbList">
+            { values.map((item, index) => 
+                <li key={item}
+                    itemProp="itemListElement"
+                    itemType="https://schema.org/ListItem"
+                    itemScope>
+                    <span itemProp="name">
+                        {item}
+                    </span>
+                    <meta itemProp="position" content={++index} />
                 </li>
             ) }
-        </ul>
+        </ol>
      );
 }
 

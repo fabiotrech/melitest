@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Breadcrumb from "./common/breadcrumb";
+import ProductContent from './content-details/productContent';
+import BuyBox from "./buyBox";
 import { getById } from "../services/itemService";
-import { formatCurrencyPrice, isEmptyObject } from "../utils";
+import { isEmptyObject } from "../utils";
 import "./details.scss";
 
 class Details extends Component {
@@ -15,10 +17,6 @@ class Details extends Component {
         const { categories, item } = await getById(params.id);
 
         this.setState({ categories, item });
-    }
-
-    formatCondition = condition => {
-        return condition === "new" ? "Nuevo" : "Usado";
     }
 
     render() {
@@ -36,24 +34,18 @@ class Details extends Component {
                 <Breadcrumb values={categories} />
 
                 <div className="details">
-                    <div className="content">
-                        <img src={picture} alt="Imagen del producto" />
-                        
-                        <h2 className="description-title">Descripci&oacute;n del producto</h2>
-                        <p className="item-description">{description}</p>
-                    </div>
-                    <div className="buy-box">
-                        <p className="sold-quantity">
-                            {this.formatCondition(condition)} - {sold_quantity} vendidos
-                        </p>
-                        <h1 className="item-title">{title}</h1>
-                        <p className="price">
-                            {formatCurrencyPrice(price.currency, price.amount)}
-                        </p>
-                        <button type="button">
-                            Comprar
-                        </button>
-                    </div>
+                    {/* Pense que quizas seria normal que el layout del contenido
+                    sea variable segun el tipo de producto (productos, inmuebles, servicios, etc) */}
+                    <ProductContent
+                        picture={picture}
+                        description={description}
+                    />
+                    <BuyBox 
+                        condition={condition}
+                        sold_quantity={sold_quantity}
+                        title={title}
+                        price={price}
+                     />
                 </div>
             </React.Fragment>
         );

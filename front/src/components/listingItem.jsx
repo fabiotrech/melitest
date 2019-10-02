@@ -4,11 +4,11 @@ import { formatCurrencyPrice } from "../utils";
 import "./listingItem.scss";
 
 const ListingItem = ({ data }) => {
-    const { id, title, price, picture, free_shipping, state_name } = data;
+    const { id, title, price, picture, free_shipping, location } = data;
 
     return ( 
         <Link to={`/items/${id}`} className="listing-item" >
-            <img className="item-image" src={picture} alt="" />
+            <img className="item-image" src={picture} alt="Imagen del producto" />
 
             <div className="item-details">
                 <span className="item-price">
@@ -21,7 +21,7 @@ const ListingItem = ({ data }) => {
             </div>
 
             <span className="item-location">
-                {state_name}
+                {location}
             </span>
         </Link>
     );
