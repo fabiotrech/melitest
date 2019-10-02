@@ -8,4 +8,4 @@ Setear el host y puerto de la api en el archivo **.env**. Variable **REACT_APP_A
 
 ### Ejecutar aplicacion con:
 
-`npm start`
+`npm run start`

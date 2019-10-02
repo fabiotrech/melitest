@@ -6,4 +6,4 @@ Instalar paquetes necesarios
 
 ### Ejecutar el servidor
 
-`node app.js`
+`npm run app.js`
