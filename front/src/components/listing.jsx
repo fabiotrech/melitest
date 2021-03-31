@@ -1,50 +1,43 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import qs from "qs";
 import ListingItem from "./listingItem";
 import Breadcrumb from "./common/breadcrumb";
-import { search } from "../services/itemService";
-import qs from "qs";
+import { searchTerm } from "../services/itemService";
 import "./listing.scss";
 
-class Listing extends Component {
-    state = {
-        categories: [],
-        items: []
+const Listing = () => {
+  const { search } = useLocation();
+  const [state, setState] = useState({ categories: [], items: [] });
+
+  useEffect(() => {
+    async function LoadData() {
+      const { search: term } = qs.parse(search, {
+        ignoreQueryPrefix: true,
+      });
+
+      const { categories, items } = await searchTerm(term);
+      setState({ categories, items });
     }
 
-    componentDidMount() {
-        this.LoadData();
-    }
-    
-    componentDidUpdate(prevProps) {
-        const { search } = this.props.location;
-        const { search: prevSearch } = prevProps.location;
-        
-        if (search !== prevSearch) this.LoadData();
-    }
+    LoadData();
+  }, [search]);
 
-    async LoadData() {
-        const { search: term } = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
-        const { categories, items } = await search(term);
-        this.setState({ categories, items });
-    }
+  const { items, categories } = state;
 
-    render() {
-        const { items, categories } = this.state;
+  return (
+    <>
+      <Breadcrumb values={categories} />
 
-        return (
-            <React.Fragment>
-                <Breadcrumb values={categories} />
+      <ul className="list">
+        {items.map((item) => (
+          <li key={item.id}>
+            <ListingItem {...item} />
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
 
-                <ul className="list">
-                    { items.map(item => 
-                        <li key={item.id}>
-                            <ListingItem data={item} />
-                        </li>
-                    )}
-                </ul>
-            </React.Fragment>
-        );
-    }
-}
- 
 export default Listing;
